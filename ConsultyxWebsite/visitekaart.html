@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>Consultyx | Premium Visitekaartje</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@600;700&display=swap');
+
+        :root {
+            --primary: #a68a64;
+            --bg-dark: #1a1a1b;
+        }
+
+        body {
+            background-color: #d1d1d1;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+            padding: 50px;
+            margin: 0;
+        }
+
+        /* Standaard Europees formaat visitekaartje */
+        .card-zijde {
+            width: 85mm;
+            height: 55mm;
+            background-color: var(--bg-dark);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+            box-sizing: border-box;
+            color: white;
+        }
+
+        /* Subtiel gouden gloed-effect in de hoek */
+        .card-zijde::before {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, rgba(166, 138, 100, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        /* ====================================
+           VOORKANT (Zeer minimalistisch)
+           ==================================== */
+        .front {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .front-logo {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 22px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+        }
+        
+        .front-logo span {
+            color: var(--primary);
+        }
+
+        .tagline {
+            margin-top: 8px;
+            font-size: 6px;
+            letter-spacing: 3px;
+            color: #888;
+            text-transform: uppercase;
+        }
+
+        /* ====================================
+           ACHTERKANT (Gegevens)
+           ==================================== */
+        .back {
+            padding: 8mm 10mm;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .name {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            color: var(--primary);
+            margin: 0;
+            letter-spacing: 0.5px;
+        }
+
+        .title {
+            font-size: 7px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #aaa;
+            margin-top: 3px;
+            margin-bottom: 12px;
+        }
+
+        .divider {
+            width: 25px;
+            height: 1px;
+            background-color: var(--primary);
+            margin-bottom: 12px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .contact-line {
+            font-size: 8px;
+            color: #ddd;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-line span {
+            color: var(--primary);
+            font-weight: 600;
+            width: 12px; /* Zorgt dat alle tekst mooi op 1 lijn begint */
+            display: inline-block;
+        }
+
+        /* ====================================
+           PRINT & PDF INSTRUCTIES
+           ==================================== */
+        @media print {
+            @page {
+                size: 85mm 55mm; /* Precies het formaat van het kaartje */
+                margin: 0;
+            }
+            body {
+                background-color: white;
+                padding: 0;
+                margin: 0;
+                display: block;
+            }
+            .card-zijde {
+                box-shadow: none;
+                margin: 0;
+                page-break-after: always;
+                break-after: page;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important; 
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card-zijde front">
+        <div class="front-logo">Consult<span>yx</span></div>
+        <div class="tagline">Construct • Cleaning • IT</div>
+    </div>
+
+    <div class="card-zijde back">
+        <h2 class="name">Mounir A.</h2>
+        <div class="title">Zaakvoerder / CEO</div>
+        
+        <div class="divider"></div>
+
+        <div class="contact-info">
+            <div class="contact-line"><span>T.</span> +32 498 73 41 13</div>
+            <div class="contact-line"><span>E.</span> info@consultyx.be</div>
+            <div class="contact-line"><span>W.</span> www.consultyx.be</div>
+        </div>
+    </div>
+
+</body>
+</html>

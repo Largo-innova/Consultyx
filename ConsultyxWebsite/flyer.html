@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>Consultyx | Premium Flyer Design</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Playfair+Display:wght@600;700&display=swap');
+
+        :root {
+            --primary: #a68a64;
+            --bg-dark: #1a1a1b;
+            --bg-light: #f9f8f6;
+            --text-dark: #2d2d2d;
+        }
+
+        body {
+            background-color: #d1d1d1;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 50px;
+            padding: 50px;
+            margin: 0;
+        }
+
+        .flyer-zijde {
+            width: 148mm;
+            height: 210mm;
+            background-color: var(--bg-dark); /* Nu ook dark-mode voor de achterkant */
+            box-shadow: 20px 20px 60px rgba(0,0,0,0.4);
+            position: relative;
+            overflow: hidden;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ====================================
+           VOORKANT (Dit was de versie die je top vond)
+           ==================================== */
+        .front {
+            background: linear-gradient(135deg, rgba(26, 26, 27, 0.95) 0%, rgba(26, 26, 27, 0.6) 100%), url('https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1000') center/cover;
+            color: white;
+            text-align: center;
+            padding: 40px 30px;
+            justify-content: center;
+        }
+
+        .front-logo {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 24px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            position: absolute;
+            top: 40px;
+            left: 0;
+            right: 0;
+        }
+        .front-logo span { color: var(--primary); }
+
+        .front h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 38px;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .front p {
+            font-size: 14px;
+            color: #ddd;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            max-width: 85%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .front .gold-box {
+            background-color: transparent;
+            border: 2px solid var(--primary);
+            padding: 15px 20px;
+            color: var(--primary);
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 12px;
+            display: inline-block;
+        }
+
+        /* ====================================
+           ACHTERKANT (COMPLEET NIEUW & LUXE)
+           ==================================== */
+        .back {
+            background-color: var(--bg-dark);
+            padding: 50px 40px;
+            color: white;
+        }
+
+        .back-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            line-height: 1.2;
+            margin: 0 0 15px 0;
+        }
+        
+        .back-title span {
+            color: var(--primary);
+        }
+
+        .back-intro {
+            font-size: 12px;
+            color: #aaa;
+            line-height: 1.7;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        /* Minimalistische Service Layout */
+        .elegant-service {
+            margin-bottom: 30px;
+            position: relative;
+            padding-left: 20px;
+            border-left: 1px solid rgba(166, 138, 100, 0.3);
+        }
+
+        .elegant-service h4 {
+            font-family: 'Inter', sans-serif;
+            color: var(--primary);
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .elegant-service p {
+            font-size: 12px;
+            color: #ddd;
+            line-height: 1.6;
+            margin: 0;
+            font-weight: 300;
+        }
+
+        /* Luxe Contact Sectie */
+        .contact-elegant {
+            margin-top: auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+        }
+
+        .contact-line {
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+            color: white;
+            margin-bottom: 12px;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        .contact-line span {
+            color: var(--primary);
+            font-weight: 700;
+            margin-right: 15px;
+            font-size: 14px;
+        }
+        
+.qr-placeholder {
+            position: absolute;
+            bottom: 50px;
+            right: 40px;
+            width: 80px;
+            height: 80px;
+            border: 2px solid var(--primary); /* Iets dikkere rand staat chiquer */
+            box-sizing: border-box;
+        }
+
+        /* Deze regel zorgt ervoor dat de afbeelding in het vakje blijft */
+        .qr-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Houdt de verhoudingen intact */
+            display: block;
+        }
+/* ====================================
+           PRINT & PDF INSTRUCTIES
+           ==================================== */
+        @media print {
+            @page {
+                size: 148mm 210mm; /* Exact A5 formaat */
+                margin: 0; /* Verwijder standaard witte randen */
+            }
+            body {
+                background-color: white;
+                padding: 0;
+                margin: 0;
+                display: block;
+            }
+            .flyer-zijde {
+                box-shadow: none; /* Geen schaduw op de print */
+                margin: 0;
+                page-break-after: always; /* Forceert de achterkant naar pagina 2 */
+                break-after: page;
+                /* Forceer de browser om kleuren en foto's te printen: */
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important; 
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="flyer-zijde front">
+        <div class="front-logo">Consult<span>yx</span></div>
+        
+        <div>
+            <h1>Meer dan<br>een schoonmaak<br>bedrijf.</h1>
+            <p>Eén vertrouwde partner voor zowel de perfecte kantoorhygiëne als de technische herstellingen van uw pand in Vlaanderen.</p>
+            <div class="gold-box">De 2-in-1 Oplossing</div>
+        </div>
+    </div>
+
+    <div class="flyer-zijde back">
+        
+        <h2 class="back-title">Één Partner.<br><span>Dubbele Impact.</span></h2>
+        <p class="back-intro">Geen wirwar aan contracten. Wij combineren vakkundig technisch beheer met facilitaire perfectie, zodat u zich kunt focussen op uw zaak.</p>
+
+        <div class="elegant-service">
+            <h4>De Technieker</h4>
+            <p>Van spoedinterventies bij lekkages tot het structureel onderhouden van sanitair, verlichting en schilderwerk. Wij verhelpen defecten voordat ze een probleem worden.</p>
+        </div>
+
+        <div class="elegant-service">
+            <h4>De Schoonmaker</h4>
+            <p>Dagelijkse, representatieve schoonmaak en specialistische dieptereiniging. Wij garanderen een kraaknet kantoor dat uw professionaliteit weerspiegelt.</p>
+        </div>
+
+        <div class="contact-elegant">
+            <div class="contact-line"><span>E.</span> info@consultyx.be</div>
+            <div class="contact-line"><span>T.</span> +32 498 73 41 13</div>
+            <div class="contact-line"><span>W.</span> www.consultyx.be</div>
+        </div>
+        
+        <div class="qr-placeholder">
+            <img src="Assets/img/qr-code.png" alt="">
+        </div>
+
+    </div>
+
+</body>
+</html>
