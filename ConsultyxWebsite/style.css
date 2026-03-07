@@ -26,6 +26,8 @@ body {
     background-color: var(--bg-light);
     line-height: 1.7;
     overflow-x: hidden;
+    width: 100%;
+    position: relative;
 }
 
 h1, h2, h3, h4 { 
@@ -300,83 +302,140 @@ footer { background-color: var(--bg-dark); color: var(--text-light); padding: 5r
 .card-label { position: absolute; top: -30px; color: #C8A97E; text-transform: uppercase; letter-spacing: 2px; font-size: 14px; }
 
 /* ==========================================================================
-   11. MEDIA QUERIES (GEOPTIMALISEERD VOOR GSM & TABLET)
+   11. MEDIA QUERIES (ULTIEME FIX VOOR IPHONE & ANDERE SMARTPHONES)
    ========================================================================== */
 
-/* --- TABLET & KLEINE LAPTOPS --- */
+/* --- TABLET & LAPTOP (Tot 1350px) --- */
 @media (max-width: 1350px) {
-    .hero h1 { font-size: 2.5rem; }
-    .hero-btns { flex-direction: column; }
-    .footer-bottom { flex-direction: column; text-align: center; gap: 1rem; }
+    /* Menu Fix: Logo altijd vast links, knop altijd vast rechts */
+    nav.navbar { 
+        padding: 0.5rem 1.5rem; 
+        justify-content: space-between; 
+        display: flex; 
+        width: 100%; 
+    }
+    .nav-brand { 
+        position: static !important; /* Forceert het logo weg uit het midden */
+        transform: none !important; 
+        margin: 0; 
+    }
+    .mobile-menu-btn { 
+        display: block; 
+        position: relative; 
+        z-index: 1001; 
+        margin-top: 0; 
+    }
 
-    /* Navigatie Mobiel Fix: Logo links, knop rechts, geen overlap */
-    nav.navbar { padding: 0 1.5rem; justify-content: space-between; }
-    .nav-brand { position: relative; left: auto; transform: none; margin: 0; flex-grow: 1; }
-    .mobile-menu-btn { display: block; margin-top: 0; position: relative; z-index: 1001; }
-
-    /* Menu Zijbalk Fix: Scrollbaar en start bovenaan */
+    /* Mobiel Menu Zijbalk (met iOS Safari Fix) */
     .nav-links {
-        display: flex; position: fixed; top: 0; right: 0; height: 100vh; width: 85%; max-width: 400px;
-        background: rgba(249, 248, 246, 0.98); backdrop-filter: blur(10px); flex-direction: column;
-        justify-content: flex-start; padding: 6rem 2rem 2rem; box-shadow: -10px 0 30px rgba(0,0,0,0.1); 
-        z-index: 1000; transform: translateX(100%); opacity: 0;
-        transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.4s ease; 
-        pointer-events: none; overflow-y: auto; /* Zorgt dat het menu scrollbaar is */
+        display: flex; 
+        position: fixed; 
+        top: 0; 
+        right: 0; 
+        height: 100vh; /* Fallback */
+        height: 100dvh; /* Fix voor iPhone adresbalk */
+        width: 85%; 
+        max-width: 350px;
+        background: rgba(249, 248, 246, 0.98); 
+        backdrop-filter: blur(10px); 
+        -webkit-backdrop-filter: blur(10px); /* Voor oudere iPhones */
+        flex-direction: column;
+        justify-content: flex-start; 
+        padding: 6rem 2rem 2rem; 
+        box-shadow: -10px 0 30px rgba(0,0,0,0.1); 
+        z-index: 1000; 
+        transform: translateX(100%); 
+        opacity: 0;
+        transition: transform 0.4s ease, opacity 0.4s ease; 
+        pointer-events: none; 
+        overflow-y: auto; 
     }
     .nav-links.active { transform: translateX(0); opacity: 1; pointer-events: all; }
-    .nav-links li { text-align: left; margin: 1rem 0; width: 100%; border-bottom: 1px solid #eee; padding-bottom: 0.5rem; }
-    .nav-links a { font-size: 1.2rem; display: block; }
+    .nav-links li { text-align: left; margin: 0.5rem 0; width: 100%; border-bottom: 1px solid #eee; padding-bottom: 0.8rem; }
+    .nav-links a { font-size: 1.1rem; display: block; }
 
-    /* Dropdown Fix: Altijd uitgeklapt en leesbaar in mobiel menu */
+    /* Dropdown reparatie voor gsm */
     .dropdown { flex-direction: column; align-items: flex-start; }
-    .dropbtn { pointer-events: none; color: var(--primary) !important; font-weight: 700; border: none; }
+    .dropbtn { pointer-events: none; color: var(--primary) !important; font-weight: 700; border: none; padding-bottom: 0.5rem; }
     .dropbtn svg { display: none; }
-    
     .dropdown-content {
-        display: block !important; position: static; box-shadow: none; background-color: transparent; border: none;
-        padding-left: 1.5rem; margin-top: 0.5rem; min-width: 100%;
+        display: block !important; position: static; box-shadow: none; background: transparent; border: none;
+        padding-left: 1rem; margin-top: 0; min-width: 100%;
     }
-    .dropdown-content a { font-size: 1.1rem; padding: 8px 0; border: none; color: #555; }
+    .dropdown-content a { font-size: 1rem; padding: 6px 0; color: #666; }
 }
 
-/* --- GSM WEERGAVE --- */
+/* --- IPHONE & GSM WEERGAVE (Tot 900px) --- */
 @media (max-width: 900px) {
-    /* Paddings en marges verkleinen om onnodig scrollen te voorkomen */
-    .section { padding: 4rem 5%; }
-    .hero-construct, .hero-tech, .hero-clean { padding: 8rem 5% 4rem; text-align: center; justify-content: center; }
-    .hero-clean p { margin: 0 auto 2rem; }
+    /* Voorkom dat grote elementen het scherm oprekken */
+    img, svg, iframe, .map-container { max-width: 100%; }
+
+    /* Paddings flink verkleinen voor smalle schermen */
+    .section { padding: 3rem 1.5rem !important; }
+    .hero, .hero-sub, .hero-construct, .hero-tech, .hero-clean { 
+        padding: 7rem 1.5rem 3rem !important; 
+        text-align: center; 
+        justify-content: center; 
+    }
     
-    /* Layout naar 1 kolom dwingen en centreren */
+    /* Grote teksten schalen naar iPhone formaat */
+    .hero-full h1, .hero-construct h1, .hero-tech h1, .hero-clean h1, .hero-sub h1 { 
+        font-size: 2.2rem !important; 
+        line-height: 1.2; 
+    }
+    .section-title { font-size: 2rem !important; margin-bottom: 2.5rem !important; }
+
+    /* Forceer alles in 1 strakke kolom */
     .story-section, .feature-row, .feature-row.reverse, .contact-wrapper, 
-    .construct-split, .it-split, .clean-split { 
-        display: flex; flex-direction: column; gap: 2.5rem; text-align: center; 
+    .construct-split, .it-split, .clean-split, .ceo-section { 
+        display: flex !important; 
+        flex-direction: column !important; 
+        gap: 2rem !important; 
+        text-align: center; 
     }
-    
-    .build-services-grid, .tech-services-grid, .clean-services-grid { margin-top: 2rem; }
-    
-    /* Zorg dat de afbeelding altijd bóven de tekst staat op mobiel */
-    .construct-split-img, .it-split-img, .clean-split-img, .feature-image { order: -1; margin-bottom: 1rem; width: 100%; }
-    
-    /* Zwevende badges resetten zodat ze netjes in de tekststroom vallen */
+
+    /* Grids aanpassen naar 1 kolom op iPhone */
+    .grid-2, .values-grid, .steps-grid, .build-services-grid, .tech-services-grid, .clean-services-grid {
+        display: grid;
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem;
+    }
+
+    /* Check dat de foto bovenaan staat bij secties */
+    .construct-split-img, .it-split-img, .clean-split-img, .feature-image, .ceo-image-wrapper { 
+        order: -1; 
+        width: 100%; 
+        margin-bottom: 1rem; 
+    }
+
+    /* Zwevende badges veilig in de tekst zetten */
     .experience-badge, .quality-badge, .hygiene-badge { 
-        position: relative; top: auto; left: auto; right: auto; bottom: auto; 
-        margin: 1.5rem auto; display: inline-flex; justify-content: center; width: auto;
+        position: relative !important; 
+        top: auto !important; left: auto !important; right: auto !important; bottom: auto !important; 
+        margin: 1.5rem auto !important; 
+        display: inline-flex !important; 
+        justify-content: center; 
+        width: auto;
     }
+
+    /* Formulieren passend maken */
+    .form-grid { display: flex; flex-direction: column; gap: 1rem; }
+    .form-.full { width: 100%; }
+    .info-card, .form-card, .value-card, .card { padding: 2rem 1.5rem !important; }
     
-    /* Formulieren, CEO en Checklists fixen */
-    .ceo-section { flex-direction: column-reverse; gap: 2rem; text-align: center; }
-    .form-grid { grid-template-columns: 1fr; }
-    .form-.full { grid-column: span 1; }
-    .info-card, .form-card { padding: 3rem 2rem; }
-    .checklist li { justify-content: center; text-align: left; }
+    /* Zorg dat iconen en tekst netjes uitlijnen op mobiel */
+    .value-icon, .icon-wrapper { margin: 0 auto 1.5rem; }
+    .checklist li { justify-content: flex-start; text-align: left; }
+    .hygiene-badge { flex-direction: column; text-align: center; }
 }
 
-/* --- TIJDLIJN GSM FIX --- */
+/* --- TIJDLIJN IPHONE FIX --- */
 @media (max-width: 768px) {
-    .timeline::after { left: 31px; }
-    .timeline-item { width: 100%; padding-left: 70px; padding-right: 15px; text-align: left; }
-    .timeline-item::after { left: 22px; }
+    .timeline::after { left: 20px; }
+    .timeline-item { width: 100%; padding-left: 50px; padding-right: 0; text-align: left; }
+    .timeline-item::after { left: 11px; }
     .left, .right { left: 0; }
+    .timeline-content { padding: 1.5rem; }
 }
 
 /* --- HAMBURGER MENU ANIMATIE --- */
