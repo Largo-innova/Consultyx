@@ -264,7 +264,20 @@ textarea.form-control { resize: vertical; min-height: 120px; }
 /* ==========================================================================
    9. FOOTER & GDPR
    ========================================================================== */
-footer { background-color: var(--bg-dark); color: var(--text-light); padding: 5rem 5% 2rem; }
+footer { 
+    background-color: #111; 
+    color: #fff; 
+    /* We gebruiken 'env(safe-area-inset-bottom)' om extra padding toe te voegen op iPhones */
+    padding: 5rem 5% calc(2rem + env(safe-area-inset-bottom));
+    margin-bottom: 0; /* Zeker zijn dat er geen marge onder zit */
+}
+
+/* Extra zekerheid: zorg dat de basis van de pagina ook donker is */
+html {
+    background-color: #111;
+    height: 100%;
+}
+
 .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 3rem; margin-bottom: 3rem; }
 .footer-col h4 { color: var(--text-light); margin-bottom: 1.5rem; font-family: 'Inter', sans-serif; }
 .footer-col ul { list-style: none; }
@@ -326,43 +339,111 @@ footer { background-color: var(--bg-dark); color: var(--text-light); padding: 5r
         margin-top: 0; 
     }
 
-    /* Mobiel Menu Zijbalk (met iOS Safari Fix) */
+    /* Mobiel Menu Zijbalk - LUXE EDITIE */
     .nav-links {
         display: flex; 
         position: fixed; 
         top: 0; 
         right: 0; 
-        height: 100vh; /* Fallback */
-        height: 100dvh; /* Fix voor iPhone adresbalk */
+        height: 100vh; 
+        height: 100dvh; 
         width: 85%; 
-        max-width: 350px;
-        background: rgba(249, 248, 246, 0.98); 
-        backdrop-filter: blur(10px); 
-        -webkit-backdrop-filter: blur(10px); /* Voor oudere iPhones */
+        max-width: 380px; /* Iets breder voor een ruimtelijker gevoel */
+        background: #f9f8f6 !important; 
+        backdrop-filter: none !important; 
+        -webkit-backdrop-filter: none !important;
         flex-direction: column;
         justify-content: flex-start; 
-        padding: 6rem 2rem 2rem; 
-        box-shadow: -10px 0 30px rgba(0,0,0,0.1); 
+        padding: 7rem 2.5rem 3rem; /* Meer ruimte bovenaan voor het sluitkruisje */
+        box-shadow: -15px 0 30px rgba(0,0,0,0.15); 
         z-index: 1000; 
         transform: translateX(100%); 
         opacity: 0;
-        transition: transform 0.4s ease, opacity 0.4s ease; 
+        transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.4s ease; 
         pointer-events: none; 
         overflow-y: auto; 
     }
-    .nav-links.active { transform: translateX(0); opacity: 1; pointer-events: all; }
-    .nav-links li { text-align: left; margin: 0.5rem 0; width: 100%; border-bottom: 1px solid #eee; padding-bottom: 0.8rem; }
-    .nav-links a { font-size: 1.1rem; display: block; }
-
-    /* Dropdown reparatie voor gsm */
-    .dropdown { flex-direction: column; align-items: flex-start; }
-    .dropbtn { pointer-events: none; color: var(--primary) !important; font-weight: 700; border: none; padding-bottom: 0.5rem; }
-    .dropbtn svg { display: none; }
-    .dropdown-content {
-        display: block !important; position: static; box-shadow: none; background: transparent; border: none;
-        padding-left: 1rem; margin-top: 0; min-width: 100%;
+    
+    .nav-links.active { 
+        transform: translateX(0); 
+        opacity: 1; 
+        pointer-events: all; 
     }
-    .dropdown-content a { font-size: 1rem; padding: 6px 0; color: #666; }
+    
+    /* Individuele Menu Links */
+    .nav-links li { 
+        text-align: left; 
+        width: 100%; 
+        margin: 0; 
+        border-bottom: 1px solid rgba(0,0,0,0.04); /* Veel zachtere scheidingslijn */
+    }
+    
+    .nav-links li:last-child {
+        border-bottom: none; /* Geen lijn onder de laatste link */
+    }
+
+    .nav-links a { 
+        font-family: 'Inter', sans-serif;
+        font-size: 1.3rem; /* Iets groter en eleganter */
+        font-weight: 500;
+        display: block; 
+        padding: 1.2rem 0; /* Groter klikvlak voor GSM */
+        color: var(--bg-dark);
+        transition: color 0.3s ease, padding-left 0.3s ease;
+    }
+    
+    /* Interactie Effect op Mobiel */
+    .nav-links a:hover, .nav-links a:active {
+        color: var(--primary);
+        padding-left: 8px; /* Link schuift subtiel in bij aantikken */
+    }
+
+    /* --- Dropdown / Submenu Styling --- */
+    .dropdown { 
+        flex-direction: column; 
+        align-items: flex-start; 
+    }
+    
+    .dropbtn { 
+        pointer-events: auto !important; 
+        color: var(--bg-dark); 
+        font-weight: 500; 
+        border: none; 
+        padding: 1.2rem 0; 
+        display: block;
+        width: 100%;
+        font-size: 1.3rem;
+        transition: color 0.3s ease, padding-left 0.3s ease;
+    }
+    
+    .dropbtn:hover, .dropbtn:active {
+        color: var(--primary);
+        padding-left: 8px;
+    }
+
+    .dropbtn svg { display: none; } 
+
+    .dropdown-content {
+        display: block !important; 
+        position: static; 
+        box-shadow: none; 
+        background: transparent; 
+        border: none;
+        margin: -0.5rem 0 1rem 1rem; /* Inspringen aangepast */
+        padding-left: 1.2rem; 
+        min-width: 100%;
+        border-left: 2px solid rgba(166, 138, 100, 0.3); /* Chique gouden zijlijn */
+    }
+    
+    .dropdown-content a { 
+        font-size: 1.1rem; 
+        padding: 0.8rem 0; 
+        color: #666; 
+    }
+    
+    .dropdown-content a:hover, .dropdown-content a:active { 
+        color: var(--primary); 
+    }
 }
 
 /* --- IPHONE & GSM WEERGAVE (Tot 900px) --- */
@@ -447,3 +528,68 @@ footer { background-color: var(--bg-dark); color: var(--text-light); padding: 5r
 .mobile-menu-btn.active svg line:nth-child(1) { opacity: 0; }
 .mobile-menu-btn.active svg line:nth-child(2) { transform: translateY(6px) rotate(45deg); }
 .mobile-menu-btn.active svg line:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+/* ==========================================================================
+   12. SPLASH SCREEN (Intro Animatie)
+   ========================================================================== */
+#splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh; /* Voor de iPhone notch */
+    background-color: var(--bg-dark);
+    z-index: 99999; /* Zorgt dat het écht overal bovenop ligt */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1), opacity 1s ease;
+}
+
+/* Het logo dat in-fadet */
+.splash-logo {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: white;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    opacity: 0; /* Begint onzichtbaar */
+    animation: splashFadeIn 1s ease forwards 0.3s;
+}
+
+.splash-logo span {
+    color: var(--primary);
+}
+
+/* De gouden lijn die uitschuift */
+.splash-line {
+    width: 0;
+    height: 2px;
+    background-color: var(--primary);
+    margin-top: 20px;
+    animation: splashLine 1s ease forwards 0.8s; /* Start na het logo */
+}
+
+/* Animaties */
+@keyframes splashFadeIn {
+    to { opacity: 1; }
+}
+
+@keyframes splashLine {
+    to { width: 120px; }
+}
+
+/* Deze classes worden via JavaScript toegevoegd */
+#splash-screen.hide {
+    transform: translateY(-100%); /* Schuift naar boven weg */
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Voor als ze al eens op de pagina zijn geweest (geen animatie) */
+#splash-screen.hidden-instant {
+    display: none !important;
+}
