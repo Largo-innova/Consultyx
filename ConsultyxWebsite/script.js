@@ -13,7 +13,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     fadeElements.forEach(el => observer.observe(el));
 
+// Blokkeer rechtermuisknop
+  document.addEventListener('contextmenu', event => event.preventDefault());
 
+  // Blokkeer sneltoetsen voor inspecteren (F12, Ctrl+Shift+I, etc.)
+  document.onkeydown = function(e) {
+    if(e.keyCode == 123) { return false; }
+    if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { return false; }
+    if(e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) { return false; }
+    if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) { return false; }
+    if(e.ctrlKey && e.uKey && e.keyCode == 'U'.charCodeAt(0)) { return false; }
+  };
     // --- 2. Mobiele Navigatie ---
     const burgerBtn = document.querySelector('.mobile-menu-btn');
     const navLinks = document.querySelector('.nav-links');
@@ -85,5 +95,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }, 2500); // 2500 milliseconden = 2,5 seconden
         }
     }
+
 
 });
