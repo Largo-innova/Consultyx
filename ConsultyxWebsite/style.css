@@ -532,7 +532,6 @@ body {
         top: 100%;
         left: 0;
         width: 100%;
-        height: 50vh; /* Plakt een groot zwart vlak ónder de footer */
         background-color: #111;
         pointer-events: none;
     }
@@ -622,4 +621,5 @@ body {
 #splash-screen.hidden-instant {
     display: none !important;
 }
+
 
