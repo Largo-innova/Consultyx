@@ -273,9 +273,13 @@ footer {
 }
 
 /* Extra zekerheid: zorg dat de basis van de pagina ook donker is */
-html {
-    background-color: #111;
-    height: 100%;
+/* Safari bugfix voor de witte balk onderaan */
+html { 
+    background-color: #111; 
+    min-height: 100vh;
+}
+body {
+    min-height: 100vh;
 }
 
 .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 3rem; margin-bottom: 3rem; }
@@ -320,22 +324,26 @@ html {
 
 /* --- TABLET & LAPTOP (Tot 1350px) --- */
 @media (max-width: 1350px) {
-    /* Menu Fix: Logo altijd vast links, knop altijd vast rechts */
+/* Menu Fix: Logo exact in het midden, menu knop strak rechts */
     nav.navbar { 
-        padding: 0.5rem 1.5rem; 
-        justify-content: space-between; 
+        padding: 1.5rem 1.5rem; 
         display: flex; 
+        justify-content: center; /* Centreert alles */
+        align-items: center;
         width: 100%; 
     }
     .nav-brand { 
-        position: static !important; /* Forceert het logo weg uit het midden */
-        transform: none !important; 
+        position: absolute !important; 
+        left: 50% !important; 
+        transform: translateX(-50%) !important; 
         margin: 0; 
+        z-index: 1002; /* Zorgt dat het logo altijd bovenaan ligt */
     }
     .mobile-menu-btn { 
         display: block; 
-        position: relative; 
-        z-index: 1001; 
+        position: absolute; 
+        right: 1.5rem; 
+        z-index: 1003; 
         margin-top: 0; 
     }
 
