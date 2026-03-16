@@ -28,20 +28,13 @@ body {
     overflow-x: hidden;
     width: 100%;
     position: relative;
-   -webkit-user-select: none; /* Safari */
-  -ms-user-select: none;     /* Internet Explorer/Edge */
-  user-select: none;
 }
 
 h1, h2, h3, h4 { 
     font-family: 'Playfair Display', serif; 
     color: var(--bg-dark); 
 }
-input, textarea {
-  -webkit-user-select: text;
-  -ms-user-select: text;
-  user-select: text;
-}
+
 /* ==========================================================================
    2. NAVIGATIE & DROPDOWN
    ========================================================================== */
@@ -621,5 +614,3 @@ body {
 #splash-screen.hidden-instant {
     display: none !important;
 }
-
-
