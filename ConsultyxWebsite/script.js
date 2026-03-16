@@ -13,30 +13,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
     fadeElements.forEach(el => observer.observe(el));
 
-// Blokkeer rechtermuisknop
-  document.addEventListener('contextmenu', event => event.preventDefault());
 
-  // Blokkeer sneltoetsen voor inspecteren (F12, Ctrl+Shift+I, etc.)
-  document.onkeydown = function(e) {
-    if(e.keyCode == 123) { return false; }
-    if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { return false; }
-    if(e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) { return false; }
-    if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) { return false; }
-    if(e.ctrlKey && e.uKey && e.keyCode == 'U'.charCodeAt(0)) { return false; }
-  };
-    // --- 2. Mobiele Navigatie ---
+    // --- 2. Mobiele Navigatie (Inclusief Click-Outside Fix) ---
     const burgerBtn = document.querySelector('.mobile-menu-btn');
     const navLinks = document.querySelector('.nav-links');
 
     if (burgerBtn && navLinks) {
-        burgerBtn.addEventListener('click', () => {
-            // Opent het menu
+        // Zorg ervoor dat de knop zelf het menu opent/sluit
+        burgerBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); // Voorkomt dat het document click event meteen afgaat
+            burgerBtn.classList.toggle('active');
             navLinks.classList.toggle('active');
-            
-            // Verandert de hamburger in een 'X' (en vice versa)
-            burgerBtn.classList.toggle('active'); 
         });
     }
+
+    // Sluit het menu als je ergens anders op het scherm klikt
+    document.addEventListener('click', (e) => {
+        // Check of het menu open is
+        if (navLinks && navLinks.classList.contains('active')) {
+            // Check of de klik BUITEN het menu en BUITEN de hamburgerknop was
+            if (!navLinks.contains(e.target) && !burgerBtn.contains(e.target)) {
+                burgerBtn.classList.remove('active');
+                navLinks.classList.remove('active');
+            }
+        }
+    });
 
 
     // --- 3. Leeftijd Berekening ---
@@ -87,14 +88,13 @@ document.addEventListener("DOMContentLoaded", () => {
             // JA: Verberg het direct zonder animatie (bij terugklikken naar Home)
             splashScreen.classList.add('hidden-instant');
         } else {
-            // NEE: Het is de eerste keer! Laat hem staan en schuif hem weg na 2.5 seconden.
+            // NEE: Het is de eerste keer! Laat hem staan en schuif hem weg na 1.5 seconden.
             setTimeout(() => {
                 splashScreen.classList.add('hide');
                 // Sla op in de sessie dat de animatie klaar is
                 sessionStorage.setItem('splashPlayed', 'true');
-            }, 2500); // 2500 milliseconden = 2,5 seconden
+            }, 2500); // 2500 milliseconden = 1,5 seconden
         }
     }
-
 
 });
